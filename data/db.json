@@ -1,0 +1,28 @@
+{
+  "products": [
+    {
+      "id": "4",
+      "name": "Price",
+      "price": 6800,
+      "checked": true
+    },
+    {
+      "id": "5",
+      "name": "Sara",
+      "price": 200,
+      "checked": false
+    },
+    {
+      "id": "6",
+      "name": "Test",
+      "price": 500,
+      "checked": false
+    },
+    {
+      "id": "7",
+      "name": "RR",
+      "price": 875,
+      "checked": false
+    }
+  ]
+}
