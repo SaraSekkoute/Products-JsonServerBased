@@ -5,6 +5,8 @@ import {subscribe} from "node:diagnostics_channel";
 import {ProductService} from "../services/product.service";
 import {Product} from "../model/product.model";
 import {Observable} from "rxjs";
+import {createInjectableType} from "@angular/compiler";
+import { Router} from "@angular/router";
 
 @Component({
   selector: 'app-product',
@@ -18,6 +20,9 @@ export class ProductComponent implements OnInit{
 
    public products :Array<Product>=[];
    public  keyword: string="";
+   totalPages:number=0;
+   pageSize:number=3;
+   currentpage:number=1;
 
 
 
@@ -28,7 +33,7 @@ export class ProductComponent implements OnInit{
 
  // constructor(private http:HttpClient) {}
 
-  constructor(private productservice:ProductService) {}
+  constructor(private productservice:ProductService ,private router:Router) {}
   ngOnInit() {
    /* this.http.get<any>("http://localhost:8086/products")
       .subscribe(
@@ -43,9 +48,9 @@ export class ProductComponent implements OnInit{
 
 
       )*/
-    this.getProducts();
+    this.searchProducts();
   }
- getProducts(){
+ /*getProducts(){
    //this.http.get<any>("http://localhost:8086/products")
    //solution 1
    this.productservice.getProducts(1,2)
@@ -60,7 +65,34 @@ export class ProductComponent implements OnInit{
        }
 
 
-     )
+     )*/
+  searchProducts(){
+    //this.http.get<any>("http://localhost:8086/products")
+    //solution 1
+    this.productservice.searchProducts(this.keyword,this.currentpage,this.pageSize)
+      .subscribe(
+        {
+          next:(resp)=>{
+            this.products=resp.body as Product[];
+             let totalProduct:number =parseInt(resp.headers.get("X-Total-Count")!);
+
+             this.totalPages=Math.floor(totalProduct/this.pageSize);
+             //the rest
+            if(totalProduct % this.pageSize !=0)
+            {
+            this.totalPages=this.totalPages+1
+            }
+          console.log(this.totalPages);
+           }
+          ,
+          error:err =>
+          {
+            console.log(err);
+          }
+        }
+
+
+      )
 
    //solution2
    //this.products$=this.productservice.getProducts();
@@ -110,10 +142,45 @@ export class ProductComponent implements OnInit{
     )
   }
 
-  searchProduct() {
- this.productservice.searchProducts(this.keyword).subscribe(
+
+
+
+
+
+
+
+
+
+  /*searchProduct() {
+
+ this.productservice.searchProducts(this.currentpage,this.pageSize).subscribe(
    {next:data=>
      {this.products=data;}}
  )
+  }*/
+
+
+
+
+
+
+
+
+
+
+
+
+  handelGotPage(page: number) {
+    this.currentpage=page;
+    this.searchProducts();
+
+  }
+
+/*  handleEditProduct(product: Product) {
+    this.route.navigateByUrl(`/editProduct/${product.id}`)
+  }*/
+
+  handleEditProduct(product: Product) {
+    this.router.navigateByUrl(`/editproducts/${product.id}`)
   }
 }

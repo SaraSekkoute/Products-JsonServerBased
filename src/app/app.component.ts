@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import {HttpClient} from "@angular/common/http";
 
 @Component({
   selector: 'app-root',
@@ -12,6 +13,8 @@ export class AppComponent {
     {title:"NewProduct","route":"/newproducts",icon:"house"}
   ];
   currentAction:any;
+  constructor() {
+  }
 
   setCurrentAction(action: any) {
     this.currentAction=action

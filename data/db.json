@@ -2,27 +2,39 @@
   "products": [
     {
       "id": "4",
-      "name": "Price",
+      "name": "pc2",
       "price": 6800,
-      "checked": true
-    },
-    {
-      "id": "5",
-      "name": "Sara",
-      "price": 200,
       "checked": false
     },
     {
+      "id": "5",
+      "name": "sara",
+      "price": 200,
+      "checked": true
+    },
+    {
       "id": "6",
-      "name": "Test",
+      "name": "test",
       "price": 500,
       "checked": false
     },
     {
       "id": "7",
-      "name": "RR",
+      "name": "rr",
       "price": 875,
       "checked": false
+    },
+    {
+      "name": "sar9",
+      "price": "15",
+      "checked": false,
+      "id": "QqpY5EB"
+    },
+    {
+      "name": "sara",
+      "price": "4",
+      "checked": false,
+      "id": "mBG-WD4"
     }
   ]
 }

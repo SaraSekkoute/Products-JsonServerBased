@@ -7,15 +7,17 @@ import { HomeComponent } from './home/home.component';
 import { ProductComponent } from './product/product.component';
 import { NewProductComponent } from './new-product/new-product.component';
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
-import {HttpClient, HttpClientModule} from "@angular/common/http";
+import {HttpClient, HttpClientModule,provideHttpClient, withFetch} from "@angular/common/http";
 import {ProductService} from "./services/product.service";
+import { EditProductComponent } from './edit-product/edit-product.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     HomeComponent,
     ProductComponent,
-    NewProductComponent
+    NewProductComponent,
+    EditProductComponent
   ],
     imports: [
         BrowserModule,
