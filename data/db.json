@@ -2,25 +2,19 @@
   "products": [
     {
       "id": "4",
-      "name": "pc2",
+      "name": "pc",
       "price": 6800,
-      "checked": false
-    },
-    {
-      "id": "5",
-      "name": "sara",
-      "price": 200,
       "checked": true
     },
     {
       "id": "6",
-      "name": "test",
+      "name": "Clavier",
       "price": 500,
       "checked": false
     },
     {
       "id": "7",
-      "name": "rr",
+      "name": "Sourie",
       "price": 875,
       "checked": false
     },
@@ -35,6 +29,18 @@
       "price": "4",
       "checked": false,
       "id": "mBG-WD4"
+    },
+    {
+      "name": "test",
+      "price": "10",
+      "checked": false,
+      "id": "aRn5wZH"
+    },
+    {
+      "name": "pc2",
+      "price": "4",
+      "checked": false,
+      "id": "RtnWknz"
     }
   ]
 }

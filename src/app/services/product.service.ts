@@ -9,27 +9,28 @@ import {Product} from "../model/product.model";
 export class ProductService {
   //we can declare data,method in the service
 // inject object  http
+  private host:string="http://localhost:8086";
   constructor(private http:HttpClient) { }
 
   public  searchProducts(keyword: string="",page:number=1,size:number=4)
   {
   // return  this.http.get<any>(`http://localhost:8086/products?_page=${page}&_limit=${size}`)
    //Iwant return HTTP respons (headers and body)
-    return  this.http.get(`http://localhost:8086/products?name_like=${keyword}&_page=${page}&_limit=${size}`,{observe:'response'})
+    return  this.http.get(`${this.host}/products?name_like=${keyword}&_page=${page}&_limit=${size}`,{observe:'response'})
   }
   public  checkProduct(product:Product):Observable<Product>
   {
-    return  this.http.patch<Product>(`http://localhost:8086/products/${product.id}`,
+    return  this.http.patch<Product>(`${this.host}/products/${product.id}`,
       {checked:!product.checked})
   }
   public deleteProduct(product:Product)
   {
-    return this.http.delete<any>(`http://localhost:8086/products/${product.id}`)
+    return this.http.delete<any>(`${this.host}/products/${product.id}`)
   }
 
   saveProduct(product: Product):Observable<Product> {
 
-    return this.http.post<any>(`http://localhost:8086/products`,product);
+    return this.http.post<any>(`${this.host}/products`,product);
 
   }
  /* public searchProducts(keyword: string,page:number,size:number): Observable<Array<Product>> {
@@ -37,7 +38,7 @@ export class ProductService {
   }*/
 
   getProductId(productId: number):Observable<Product>  {
-    return this.http.get<Product>(`http://localhost:8086/products/${productId}`)
+    return this.http.get<Product>(`${this.host}/products/${productId}`)
 
   }
 

@@ -7,6 +7,7 @@ import {Product} from "../model/product.model";
 import {Observable} from "rxjs";
 import {createInjectableType} from "@angular/compiler";
 import { Router} from "@angular/router";
+import {AppStateService} from "../services/app-state.service";
 
 @Component({
   selector: 'app-product',
@@ -18,11 +19,13 @@ export class ProductComponent implements OnInit{
 
   // products$! :Observable<Array<Product>>;
 
-   public products :Array<Product>=[];
-   public  keyword: string="";
-   totalPages:number=0;
-   pageSize:number=3;
-   currentpage:number=1;
+   // public products :Array<Product>=[];
+   // public  keyword: string="";
+   // totalPages:number=0;
+   // pageSize:number=3;
+   // currentpage:number=1;
+   //
+
 
 
 
@@ -33,7 +36,8 @@ export class ProductComponent implements OnInit{
 
  // constructor(private http:HttpClient) {}
 
-  constructor(private productservice:ProductService ,private router:Router) {}
+  constructor(private productservice:ProductService ,private router:Router,
+  public appState:AppStateService ) {}
   ngOnInit() {
    /* this.http.get<any>("http://localhost:8086/products")
       .subscribe(
@@ -67,27 +71,47 @@ export class ProductComponent implements OnInit{
 
      )*/
   searchProducts(){
+    //this.appState.productsState.status="LOADING";
+ /*   this.appState.setProductState(
+      {
+        status:"LOADING"
+      }
+    );
+    we do 'intercept' instead*/
     //this.http.get<any>("http://localhost:8086/products")
     //solution 1
-    this.productservice.searchProducts(this.keyword,this.currentpage,this.pageSize)
+    this.productservice.searchProducts(this.appState.productsState.keyword,this.appState.productsState.currentpage,this.appState.productsState.pageSize)
       .subscribe(
         {
           next:(resp)=>{
-            this.products=resp.body as Product[];
+            let products=resp.body as Product[];
              let totalProduct:number =parseInt(resp.headers.get("X-Total-Count")!);
-
-             this.totalPages=Math.floor(totalProduct/this.pageSize);
+//this.appState.productsState.totalProduct=totalProduct;
+           let totalPages=Math.floor(totalProduct/this.appState.productsState.pageSize);
              //the rest
-            if(totalProduct % this.pageSize !=0)
+            if(totalProduct % this.appState.productsState.pageSize !=0)
             {
-            this.totalPages=this.totalPages+1
+              this.appState.productsState.totalPages=this.appState.productsState.totalPages+1
             }
-          console.log(this.totalPages);
+          console.log(this.appState.productsState.totalPages);
+
+            this.appState.setProductState({
+              products:products,
+              totalProducts:totalProduct,
+              totalPages:totalPages,
+                status:"LOADED"
+
+            })
            }
           ,
           error:err =>
           {
-            console.log(err);
+            this.appState.setProductState({
+
+                status:"ERROR",
+              errorMessage:err
+
+            })
           }
         }
 
@@ -134,8 +158,8 @@ export class ProductComponent implements OnInit{
         {
           //this.getProducts();
           //ignore it in front end
-         this.products=this.products.filter(p=>p.id!=product.id)
-
+         // this.appState.productsState.products=this.appState.productsState.products.filter((p:any)=>p.id!=product.id)
+          this.searchProducts();
 
         }
       }
@@ -171,7 +195,7 @@ export class ProductComponent implements OnInit{
 
 
   handelGotPage(page: number) {
-    this.currentpage=page;
+    this.appState.productsState.currentpage=page;
     this.searchProducts();
 
   }
