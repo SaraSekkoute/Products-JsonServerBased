@@ -1,4 +1,4 @@
-<div class="p-3">
+<div class="p-3 navbar">
   <ul class="nav nav-pills">
     <!-- <li>
       <button
@@ -32,13 +32,24 @@
       </button>
 
     </li>
-    <li *ngIf="appState.productsState.status=='LOADING'">
-<!--    <li *ngIf="isLoading==true ">-->
+    <!--li *ngIf="appState.productsState.status=='LOADING'"-->
+    <li *ngIf="loadingservice.isLoading$ | async">
+      <!--    <li *ngIf="isLoading==true ">-->
 
       <div class="spinner-border text-primary ms-2 " role="status">
         <span class="visually-hidden">Loading...</span>
       </div>
     </li>
   </ul>
+  <ul class="nav nav-pills">
+    <li *ngIf="appState.authState.isAuthenticated==true">
+      {{appState.authState.username}}
+      <button class="btn btn-success" (click)="logout()">Logout</button>
+    </li>
+    <li *ngIf="!appState.authState.isAuthenticated">
+      {{appState.authState.username}}
+      <button class="btn btn-success" (click)="login()">Login</button>
+    </li>
 
+  </ul>
 </div>

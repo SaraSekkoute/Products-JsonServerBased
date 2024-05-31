@@ -17,6 +17,13 @@ export class AppStateService {
 
 
 }
+  //what will be stored once it user login
+  public authState:any={
+    isAuthenticated :false,
+    username :undefined,
+    roles:undefined,
+    token:undefined
+}
   constructor() { }
   public setProductState(state :any)
   {
@@ -24,5 +31,8 @@ export class AppStateService {
     //...this.productsState current product status
     //...state the data we want to change
     this.productsState={...this.productsState,...state}
+  }
+  public  setAuthState(state :any):void{
+    this.authState={...this.authState,...state}
   }
 }
