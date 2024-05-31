@@ -1,11 +1,12 @@
-<h2>Login</h2>
+<h3>Create an Angular web application that allows you to manage products with a Json-server-based backend</h3>
+<p>Login</p>
 <img src="Captures/img.png">
-<h2>user interfaces </h2>
+<p>user interfaces </p>
 <img src="Captures/img_1.png">
-<h3>User does not have access to create a new product</h3>
+<p>User does not have access to create a new product</p>
 <img src="Captures/img_2.png">
 <hr>
-<h2>Admin interfaces </h2>
+<p>Admin interfaces </p>
 <img src="Captures/img_4.png">
 <img src="Captures/img_5.png">
 <img src="Captures/img_3.png">
